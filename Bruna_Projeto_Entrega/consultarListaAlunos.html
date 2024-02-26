@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Alunos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles_tela_consulta.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Educacional</h1>
+            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i>Página Inicial</a></li>
+                <li><a href="consultarListaAlunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da Disciplina</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+            <h2>Consultar Alunos</h2>
+            <div class="barra-de-busca">
+                <select id="disciplinaSelect">
+                    <option value="">Selecione uma disciplina</option>
+                    <option value="BSI/012" informacao-da-disciplina="Essa disciplina aborda conceitos básicos de programação." carga-horaria="80 hrs (4 tempos)" periodo="1º período" numero-aulas="47">Técnicas de Programação</option>
+                    <option value="BSI/034" informacao-da-disciplina="Esta disciplina explora os princípios da programação orientada a objetos." carga-horaria="80 hrs (4 tempos)" periodo="3º período" numero-aulas="96">Programação Orientada a Objetos</option>
+                    <option value="BSI/056" informacao-da-disciplina="Laboratório prático para aplicação dos conceitos de POO." carga-horaria="80 hrs (4 tempos)" periodo="5º período" numero-aulas="96">Lab de Orientação a Objetos</option>
+                    <option value="BSI/090" informacao-da-disciplina="Introdução aos conceitos e técnicas de inteligência artificial." carga-horaria="60 hrs (3 tempos)" periodo="5º período" numero-aulas="47">Inteligência Artificial (BSI)</option>
+                    <option value="BEC/045" informacao-da-disciplina="Estudo de algoritmos e suas técnicas de programação." carga-horaria="80 hrs (4 tempos)" periodo="7º período" numero-aulas="97">Algoritmos e Técnicas de Programação</option>
+                    <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)</option>
+                </select>
+                <select id="cursoSelect">
+                    <option value="">Selecione um curso</option>
+                    <option value="BSI">BSI</option>
+                    <option value="BEC">BEC</option>
+                </select>
+                <button id="buscarButton" type="button">Buscar</button>
+            </div>
+            <p id="mensagemSelecionarDisciplina" style="color: #2c3e50;">Por favor, selecione uma disciplina</p>
+            <div id="Disciplinas" style="display: none;">
+                <p id="nomeDisciplinaSelecionada"></p>
+                <p id="descricaoDisciplina"></p>
+                <p id="periodoDisciplina"></p>
+                <p id="cargaHorariaDisciplina"></p>
+                <p id="numeroAulasDisciplina"></p>
+                <div id="resultadosBusca">
+                    <button id="listarAlunosButton" type="button" style="display: none;">Listar Alunos</button>
+                    <button id="enviarMaterialButton" type="button" style="display: none;">Enviar Material</button>
+                    <button id="abrirDiarioButton" type="button" style="display: none;">Diário</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="acessibilidade">
+                Acessibilidade
+            </div>
+        </div>
+  </footer>
+  
+  <!-- script do js -->
+  <script>
+    const buscarButton = document.getElementById('buscarButton');
+const disciplinaSelect = document.getElementById('disciplinaSelect');
+const cursoSelect = document.getElementById('cursoSelect');
+const resultadosBusca = document.getElementById('resultadosBusca');
+const nomeDisciplinaSelecionada = document.getElementById('nomeDisciplinaSelecionada');
+const descricaoDisciplina = document.getElementById('descricaoDisciplina');
+const cargaHorariaDisciplina = document.getElementById('cargaHorariaDisciplina');
+const periodoDisciplina = document.getElementById('periodoDisciplina');
+const numeroAulasDisciplina = document.getElementById('numeroAulasDisciplina');
+const listarAlunosButton = document.getElementById('listarAlunosButton');
+const enviarMaterialButton = document.getElementById('enviarMaterialButton');
+const abrirDiarioButton = document.getElementById('abrirDiarioButton');
+
+// Logica para o botão de busca funcionarr
+buscarButton.addEventListener('click', function() 
+  {
+   document.getElementById('mensagemSelecionarDisciplina').style.display = 'none';
+    if (disciplinaSelect.value) 
+    {
+        const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+        const descricao = disciplinaSelect.options[disciplinaSelect.selectedIndex].getAttribute('informacao-da-disciplina');
+        const cargaHoraria = disciplinaSelect.options[disciplinaSelect.selectedIndex].getAttribute('carga-horaria');
+        const periodo = disciplinaSelect.options[disciplinaSelect.selectedIndex].getAttribute('periodo');
+        const numeroAulas = disciplinaSelect.options[disciplinaSelect.selectedIndex].getAttribute('numero-aulas');
+        
+        nomeDisciplinaSelecionada.textContent = nomeDisciplina;
+        descricaoDisciplina.textContent = descricao;
+        cargaHorariaDisciplina.textContent = `Carga Horária Prevista: ${cargaHoraria}`;
+        periodoDisciplina.textContent = `Período: ${periodo}`;
+        numeroAulasDisciplina.textContent = `Número de Aulas Previsto: ${numeroAulas}`;
+        
+        document.getElementById('Disciplinas').style.display = 'block';
+      
+        // Tornar os botões visiveis na tela
+        listarAlunosButton.style.display = 'inline-block';
+        enviarMaterialButton.style.display = 'inline-block';
+        abrirDiarioButton.style.display = 'inline-block';
+
+        resultadosBusca.querySelectorAll('.disciplina').forEach(item => 
+        {
+            item.querySelector('.botoes-disciplina').remove();
+        });
+    } else 
+    {
+       document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
+    }
+});
+
+//Evento de mudança no select dos cursos
+
+cursoSelect.addEventListener('change', function() 
+{
+  document.getElementById('Disciplinas').style.display = 'none';
+    
+    const cursoSelecionado = cursoSelect.value;
+
+    if (cursoSelecionado === '' ) 
+    {
+        disciplinaSelect.innerHTML = `
+            <option value="BSI/012" informacao-da-disciplina="Essa disciplina aborda conceitos básicos de programação." carga-horaria="80 hrs (4 tempos)" periodo="1º período" numero-aulas="47">Técnicas de Programação</option>
+            <option value="BSI/034" informacao-da-disciplina="Esta disciplina explora os princípios da programação orientada a objetos." carga-horaria="80 hrs (4 tempos)" periodo="3º período" numero-aulas="96">Programação Orientada a Objetos</option>
+            <option value="BSI/056" informacao-da-disciplina="Laboratório prático para aplicação dos conceitos de POO." carga-horaria="80 hrs (4 tempos)" periodo="5º período" numero-aulas="96">Lab de Orientação a Objetos</option>
+            <option value="BSI/090" informacao-da-disciplina="Introdução aos conceitos e técnicas de inteligência artificial." carga-horaria="60 hrs (3 tempos)" periodo="5º período" numero-aulas="47">Inteligência Artificial (BSI)</option>
+            <option value="BEC/045" informacao-da-disciplina="Estudo de algoritmos e suas técnicas de programação." carga-horaria="80 hrs (4 tempos)" periodo="7º período" numero-aulas="97">Algoritmos e Técnicas de Programação</option>
+            <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
+                listarAlunosButton.style.display = 'none';
+                enviarMaterialButton.style.display = 'none';
+                abrirDiarioButton.style.display = 'none';
+      document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
+    } else 
+    {
+        switch (cursoSelecionado) 
+        {
+            case 'BSI':
+                disciplinaSelect.innerHTML = `
+                    <option value="BSI/012" informacao-da-disciplina="Essa disciplina aborda conceitos básicos de programação." carga-horaria="80 hrs (4 tempos)" periodo="1º período" numero-aulas="47">Técnicas de Programação</option>
+            <option value="BSI/034" informacao-da-disciplina="Esta disciplina explora os princípios da programação orientada a objetos." carga-horaria="80 hrs (4 tempos)" periodo="3º período" numero-aulas="96">Programação Orientada a Objetos</option>
+            <option value="BSI/056" informacao-da-disciplina="Laboratório prático para aplicação dos conceitos de POO." carga-horaria="80 hrs (4 tempos)" periodo="5º período" numero-aulas="96">Lab de Orientação a Objetos</option>
+            <option value="BSI/090" informacao-da-disciplina="Introdução aos conceitos e técnicas de inteligência artificial." carga-horaria="60 hrs (3 tempos)" periodo="5º período" numero-aulas="47">Inteligência Artificial (BSI)</option>`;
+                listarAlunosButton.style.display = 'none';
+                enviarMaterialButton.style.display = 'none';
+                abrirDiarioButton.style.display = 'none';
+            document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
+                break;
+            case 'BEC':
+                disciplinaSelect.innerHTML = `
+                    <option value="BEC/045" informacao-da-disciplina="Estudo de algoritmos e suas técnicas de programação." carga-horaria="80 hrs (4 tempos)" periodo="7º período" numero-aulas="97">Algoritmos e Técnicas de Programação</option>
+            <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
+                listarAlunosButton.style.display = 'none';
+                enviarMaterialButton.style.display = 'none';
+                abrirDiarioButton.style.display = 'none';
+            document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
+                break;
+        }
+    }
+});
+
+// Redirecionamentos
+listarAlunosButton.addEventListener('click', function() {
+    const disciplinaSelect = document.getElementById('disciplinaSelect');
+    const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+    const cursoDisciplina = disciplinaSelect.value.split('/')[0]; 
+    if (cursoDisciplina === 'BSI') {
+        switch (nomeDisciplina) {
+            case 'Técnicas de Programação':
+                window.location.href = 'lista_de_alunos_tecnicas_programacao.html';
+                break;
+            case 'Programação Orientada a Objetos':
+                window.location.href = 'lista_de_alunos_programacao_orientada_objetos.html';
+                break;
+            case 'Lab de Orientação a Objetos':
+                window.location.href = 'lista_de_alunos_lab_orientada_objetos.html';
+             break;
+            case 'Inteligência Artificial (BSI)':
+                window.location.href = 'lista_de_alunos_inteligencia_artificial.html';
+            break;
+        }
+    } else if (cursoDisciplina === 'BEC') {
+        switch (nomeDisciplina) {
+            case 'Inteligência Artificial (BEC)':
+                window.location.href = 'lista_de_alunos_inteligencia_artificial_bec.html';
+                break;
+            case 'Algoritmos e Técnicas de Programação':
+                window.location.href = 'lista_de_alunos_atp_bec.html';
+                break;
+        }
+    }
+});
+
+enviarMaterialButton.addEventListener('click', function() 
+ {
+    window.location.href = 'enviar_material.html';
+});
+
+abrirDiarioButton.addEventListener('click', function() 
+{
+    window.location.href = 'abrir_diario.html';
+});
+  </script>
+  </body>
+</html>

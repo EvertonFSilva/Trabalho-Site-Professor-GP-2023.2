@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listagem Alunos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styleslista.css"> <!-- Link para o arquivo CSS local -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Educacional</h1>
+            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i>Página Inicial</a></li>
+                <li><a href="consultarListaAlunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da Disciplina</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+          <h2>Lista de Alunos</h2>
+  
+  <input type="text" id="barra-pesquisa" class="barra-pesquisa" placeholder="Pesquisar Aluno...">
+<button class="botao-buscar">Buscar</button>
+<button class="botao-ordenar">Ordenar(A/Z)</button>
+          <p class="left-align">Disciplina: <a href="disciplina-ia-bsi.html">Inteligência Artificial (BEC)</a></p>
+<p class="left-align">Semestre: <a href="semestre-novo.html">2023.2</a></p>
+<p class="left-align">Total de alunos: 11</p>
+          <table class = "tabela_alunos" >
+    <thead>
+        <tr>
+            <th>Foto</th>
+            <th>Matrícula</th>
+            <th>Nome Completo</th>
+            <th>Faltas</th>
+            <th>CR</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!--Alunos-->
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/WWJvD3U.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220001</td>
+            <td><a href="perfil_carolina.html">Carolina Almeida Silva</a></td>
+            <td>2</td>
+            <td>8.5</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/xxaZbJD.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220002</td>
+            <td><a href="perfil_juliana.html">Juliana Ribeiro Silva</a></td>
+            <td>4</td>
+            <td>7.8</td>
+        </tr>
+       <tr class="estudante">
+            <td><img src="https://i.imgur.com/xc4YczH.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220003</td>
+            <td><a href="perfil_marcelo.html">Marcelo Fernandes Oliveira</a></td>
+            <td>0</td>
+            <td>7.9</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/bDQmCew.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220004</td>
+            <td><a href="perfil_ana.html">Ana Souza Lima</a></td>
+            <td>0</td>
+            <td>7.0</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/xc4YczH.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220005</td>
+            <td><a href="perfil_andre.html">André Barbosa Mendes</a></td>
+            <td>0</td>
+            <td>7.7</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/xc4YczH.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20220006</td>
+            <td><a href="perfil_thiago.html">Thiago Machado Nunes</a></td>
+            <td>6</td>
+            <td>6.9</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://via.placeholder.com/50" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20200001</td>
+            <td><a href="perfil_pedro.html">Pedro Santos Almeida</a></td>
+            <td>3</td> 
+            <td>8.2</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/WWJvD3U.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20200002</td>
+            <td><a href="perfil_laura.html">Laura Costa Ribeiro</a></td>
+            <td>1</td> 
+            <td>9.0</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/xc4YczH.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20200003</td>
+            <td><a href="perfil_gabriel.html">Gabriel Lima Barbosa</a></td>
+            <td>5</td>
+            <td>7.5</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://i.imgur.com/xxaZbJD.jpeg" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20200004</td>
+            <td><a href="perfil_fernanda.html">Fernanda Castro Alves</a></td>
+            <td>2</td>
+            <td>8.7</td>
+        </tr>
+        <tr class="estudante">
+            <td><img src="https://via.placeholder.com/50" alt="Foto do aluno" class="foto_do_estudante"></td>
+            <td>20200005</td>
+            <td><a href="perfil_lucas.html">Lucas Carvalho Martins</a></td>
+            <td>0</td>
+            <td>9.5</td>
+        </tr>
+    </tbody>
+</table>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="acessibilidade">
+                Acessibilidade
+            </div>
+        </div>
+      <script>
+function ordenarNomes(arr) 
+{
+    var tamanho = arr.length;
+    for (var indice = 0; indice < tamanho; indice++) 
+    {
+        for (var segundoIndice = 0; segundoIndice < tamanho - 1; segundoIndice++) 
+        {
+            if (arr[segundoIndice].cells[2].textContent.toLowerCase() > arr[segundoIndice + 1].cells[2].textContent.toLowerCase()) {
+                var temporario = arr[segundoIndice];
+                arr[segundoIndice] = arr[segundoIndice + 1];
+                arr[segundoIndice + 1] = temporario;
+            }
+        }
+    }
+    return arr;
+}
+
+function ordenarNomesAlunos() 
+{
+    var tabela = document.querySelector('.tabela_alunos');
+    var linhas = Array.from(tabela.querySelectorAll('tbody tr'));
+
+    linhas = ordenarNomes(linhas);
+
+    for (var indice = 1; indice < tabela.rows.length;) 
+    {
+        tabela.deleteRow(indice);
+    }
+
+    for (var indice = 0; indice < linhas.length; indice++) 
+    {
+        tabela.appendChild(linhas[indice]);
+    }
+}
+
+document.querySelector('.botao-ordenar').addEventListener('click', ordenarNomesAlunos);
+</script>
+    </footer>
+</body>
+</html>
