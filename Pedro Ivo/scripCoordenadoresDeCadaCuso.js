@@ -14,27 +14,39 @@ adjustFooterPosition(false);
 
 const disciplinasPorCurso = {
     "Engenharia de Software": {
-        "Coordenador": "Prof. João Silva"
+        "Coordenador": "Prof. João Silva",
+        "Telefone": "(22)91111-9991",
+        "Email": "silva@gsuite.iff.edu.br"
     },
     "Sistemas de Informação": {
-        "Coordenador": "Prof. Maria Oliveira"
+        "Coordenador": "Prof. Maria Oliveira",
+        "Telefone": "(22)92222-9992",
+        "Email": "oliveira@gsuite.iff.edu.br"
     },
     "Administração de Empresas": {
         "Coordenador": "Profa. Clara Oliveira",
-        "Telefone": "(22)99999-9999",
-        "Email": "emailteste@gmail.com"
+        "Telefone": "(22)93333-9993",
+        "Email": "coliveira@gsuite.iff.edu.br"
     },
     "Medicina": {
-        "Coordenador": "Prof. Luiz Garcia"
+        "Coordenador": "Prof. Luiz Garcia",
+        "Telefone": "(22)94444-9994",
+        "Email": "garcia@gsuite.iff.edu.br"
     },
     "Direito": {
-        "Coordenador": "Prof. Carlos Silva"
+        "Coordenador": "Prof. Carlos Silva",
+        "Telefone": "(22)95555-9995",
+        "Email": "csilva@gsuite.iff.edu.br"
     },
     "Arquitetura": {
-        "Coordenador": "Prof. Ana Silva"
+        "Coordenador": "Prof. Ana Silva",
+        "Telefone": "(22)96666-9996",
+        "Email": "asilva@gsuite.iff.edu.br"
     },
     "Design Gráfico": {
-        "Coordenador": "Prof. Rafael Santos"
+        "Coordenador": "Prof. Rafael Santos",
+        "Telefone": "(22)97777-9997",
+        "Email": "santos@gsuite.iff.edu.br"
     },
 
 };
@@ -45,9 +57,12 @@ function showDisciplines(course) {
     const numero = disciplinasPorCurso[course].Telefone;
     const email = disciplinasPorCurso[course].Email;
     const li = document.createElement('li');
-    const disciplines = disciplinasPorCurso[course];
-
+    
+    const h2 = document.createElement('h2');
+    h2.innerText = `${course}`;
+    
     disciplinesContainer.innerHTML = '';
+    disciplinesContainer.appendChild(h2);
 
     li.innerText = `${coordinator}  \n ${numero} \n ${email}`;
     disciplinesContainer.appendChild(li);
@@ -55,19 +70,10 @@ function showDisciplines(course) {
     //console.log(`Coordenador do curso ${course}: ${coordinator}`);
 
     disciplinesContainer.style.display = 'block';
-    adjustFooterPosition(true);
 }
 
-function togglePeriods(course) {
-    const periodsContainer = document.querySelector('.periods');
-    const disciplinesContainer = document.querySelector('.disciplines');
-
-    showDisciplines(course);
-
-    adjustFooterPosition(false);
-}
 
 const courseButtons = document.querySelectorAll('.course-button');
 courseButtons.forEach(button => {
-    button.addEventListener('click', () => togglePeriods(button.dataset.course));
+    button.addEventListener('click', () => showDisciplines(button.dataset.course));
 });
