@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Horários do Professor - Solicitar Sala</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Educacional</h1>
+            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+            <h2>Solicitar Sala</h2>
+            <form id="solicitarSalaForm">
+                <div>
+                    <label for="nomeProfessor">Nome do Professor:</label>
+                    <input type="text" id="nomeProfessor" name="nomeProfessor">
+                </div>
+                <div>
+                    <label for="curso">Curso:</label>
+                    <input type="text" id="curso" name="curso">
+                </div>
+                <div>
+                    <label for="matricula">Matrícula do Professor:</label>
+                    <input type="text" id="matricula" name="matricula">
+                </div>
+                <div>
+                    <label for="numeroContato">Número de Contato:</label>
+                    <input type="text" id="numeroContato" name="numeroContato">
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <button type="button" onclick="solicitarSala()">Solicitar Sala</button>
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function solicitarSala() {
+            var nomeProfessor = document.getElementById('nomeProfessor').value;
+            var curso = document.getElementById('curso').value;
+            var matricula = document.getElementById('matricula').value;
+            var numeroContato = document.getElementById('numeroContato').value;
+            var email = document.getElementById('email').value;
+
+            if (!nomeProfessor || !curso || !matricula || !numeroContato || !email) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            var mensagem = "Solicitação de sala enviada\n\n" +
+                "Nome do Professor: " + nomeProfessor + "\n" +
+                "Curso: " + curso + "\n" +
+                "Matrícula do Professor: " + matricula + "\n" +
+                "Número de Contato: " + numeroContato + "\n" +
+                "Email: " + email;
+
+            alert(mensagem);
+        }
+    </script>
+</body>
+
+</html>
