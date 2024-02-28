@@ -1,0 +1,598 @@
+<!--
+
+Consulta de Cursos e Coordenadores
+
+Como usuário, desejo consultar os cursos disponíveis e seus respectivos coordenadores, 
+para obter informações sobre a estrutura acadêmica.
+
+Listar os cursos disponíveis.
+Ao lado de cada nome de curso, exibir o nome do coordenador responsável.
+Para cada curso, disponibilizar um botão para visualizar as disciplinas oferecidas.
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Cursos e Coordenadores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .course-button {
+            text-align: start;
+        }
+
+        .disciplines ul {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Educacional</h1>
+            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+            <h2>Consultar Cursos e Coordenadores</h2>
+            <div class="courses">
+                <button class="course-button engenharia-software" data-course="Engenharia de Software">
+                    <i class="fas fa-laptop-code"></i><b>Curso: </b>Engenharia de Software <br> <i
+                        class="fas fa-user"></i>
+                    <b>Coordenador:</b> Prof. João Silva
+                </button>
+                <button class="course-button sistemas-informacao" data-course="Sistemas de Informação">
+                    <i class="fas fa-laptop-code"></i><b>Curso: </b>Sistemas de Informação <br> <i
+                        class="fas fa-user"></i>
+                    <b>Coordenador:</b> Prof. Maria Oliveira
+                </button>
+                <button class="course-button administracao-empresas" data-course="Administração de Empresas">
+                    <i class="fas fa-briefcase"></i><b>Curso: </b>Administração de Empresas <br> <i
+                        class="fas fa-user"></i>
+                    <b>Coordenador:</b> Profa. Clara Oliveira
+                </button>
+                <button class="course-button medicina" data-course="Medicina">
+                    <i class="fas fa-user-md"></i> <b>Curso: </b>Medicina <br>
+                    <i class="fas fa-user"></i> <b>Coordenador:</b> Prof. Luiz Garcia
+                </button>
+                <button class="course-button direito" data-course="Direito">
+                    <i class="fas fa-balance-scale"></i><b>Curso: </b>Direito <br> <i class="fas fa-user"></i>
+                    <b>Coordenador:</b> Prof. Carlos Silva
+                </button>
+                <button class="course-button arquitetura" data-course="Arquitetura">
+                    <i class="fas fa-drafting-compass"></i><b>Curso: </b>Arquitetura <br> <i
+                        class="fas fa-user"></i><b>Coordenador:</b> Prof. Ana Silva
+                </button>
+                <button class="course-button design-grafico" data-course="Design Gráfico">
+                    <i class="fas fa-palette"></i> <b>Curso: </b>Design Gráfico <br> <i class="fas fa-user"></i>
+                    <b>Coordenador:</b> Prof. Rafael Santos
+                </button>
+            </div>
+            <div class="disciplines" style="display: none;">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        const disciplinasPorCurso = {
+            "Engenharia de Software": {
+                "Coordenador": "Prof. João Silva",
+                "Email": "silva@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: 'Introdução à Computação' },
+                    { nome: 'Lógica de Programação' },
+                    { nome: 'Cálculo I' },
+                    { nome: 'Álgebra Linear' },
+                    { nome: 'Inglês Técnico' }
+                ],
+                "2º Período": [
+                    { nome: 'Estruturas de Dados' },
+                    { nome: 'Cálculo II' },
+                    { nome: 'Banco de Dados' },
+                    { nome: 'Programação Orientada a Objetos' },
+                    { nome: 'Sistemas Operacionais' }
+                ],
+                "3º Período": [
+                    { nome: 'Engenharia de Requisitos' },
+                    { nome: 'Redes de Computadores' },
+                    { nome: 'Economia para Engenheiros' },
+                    { nome: 'Cálculo III' },
+                    { nome: 'Gestão de Projetos' }
+                ],
+                "4º Período": [
+                    { nome: 'Inteligência Artificial' },
+                    { nome: 'Análise e Projeto de Sistemas' },
+                    { nome: 'Gestão da Qualidade de Software' },
+                    { nome: 'Teoria da Computação' },
+                    { nome: 'Empreendedorismo em TI' }
+                ],
+                "5º Período": [
+                    { nome: 'Desenvolvimento Web' },
+                    { nome: 'Segurança da Informação' },
+                    { nome: 'Engenharia de Software II' },
+                    { nome: 'Sistemas Distribuídos' },
+                    { nome: 'Ética e Legislação em TI' }
+                ],
+                "6º Período": [
+                    { nome: 'Engenharia de Software III' },
+                    { nome: 'Banco de Dados Avançado' },
+                    { nome: 'Interface Humano-Computador' },
+                    { nome: 'Programação Paralela e Concorrente' },
+                    { nome: 'Desenvolvimento Ágil de Software' }
+                ],
+                "7º Período": [
+                    { nome: 'Teste de Software' },
+                    { nome: 'Engenharia de Software Experimental' },
+                    { nome: 'Tópicos Especiais em Engenharia de Software' },
+                    { nome: 'Projeto de Conclusão de Curso I' },
+                    { nome: 'Estágio Supervisionado I' }
+                ],
+                "8º Período": [
+                    { nome: 'Gestão de Configuração e Mudança' },
+                    { nome: 'Projeto de Conclusão de Curso II' },
+                    { nome: 'Empreendedorismo em TI II' },
+                    { nome: 'Estágio Supervisionado II' },
+                    { nome: 'Trabalho de Conclusão de Curso' }
+                ]
+            },
+            "Sistemas de Informação": {
+                "Coordenador": "Prof. Carlos Oliveira",
+                "Email": "oliveira@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: 'Introdução à Programação' },
+                    { nome: 'Matemática Discreta' },
+                    { nome: 'Lógica Matemática' },
+                    { nome: 'Fundamentos de Sistemas de Informação' },
+                    { nome: 'Comunicação e Expressão' }
+                ],
+                "2º Período": [
+                    { nome: 'Estrutura de Dados' },
+                    { nome: 'Algoritmos e Estrutura de Dados' },
+                    { nome: 'Banco de Dados' },
+                    { nome: 'Programação Orientada a Objetos' },
+                    { nome: 'Sistemas Operacionais' }
+                ],
+                "3º Período": [
+                    { nome: 'Engenharia de Software' },
+                    { nome: 'Redes de Computadores' },
+                    { nome: 'Desenvolvimento Web' },
+                    { nome: 'Gestão de Projetos de TI' },
+                    { nome: 'Ética Profissional em TI' }
+                ],
+                "4º Período": [
+                    { nome: 'Inteligência Artificial' },
+                    { nome: 'Gestão da Informação' },
+                    { nome: 'Segurança da Informação' },
+                    { nome: 'Análise e Projeto de Sistemas' },
+                    { nome: 'Empreendedorismo em TI' }
+                ],
+                "5º Período": [
+                    { nome: 'Desenvolvimento Mobile' },
+                    { nome: 'Big Data' },
+                    { nome: 'Sistemas Distribuídos' },
+                    { nome: 'Cloud Computing' },
+                    { nome: 'Mineração de Dados' }
+                ],
+                "6º Período": [
+                    { nome: 'Tópicos Avançados em Sistemas de Informação' },
+                    { nome: 'Internet das Coisas' },
+                    { nome: 'Governança de TI' },
+                    { nome: 'Auditoria de Sistemas' },
+                    { nome: 'TCC em Sistemas de Informação' }
+                ],
+                "7º Período": [
+                    { nome: 'Estágio Supervisionado em TI' },
+                    { nome: 'Metodologia Científica' },
+                    { nome: 'Gestão de Qualidade de Software' },
+                    { nome: 'Inglês Técnico para TI' },
+                    { nome: 'Direito e Legislação em TI' }
+                ],
+                "8º Período": [
+                    { nome: 'Projeto Integrador em Sistemas de Informação' },
+                    { nome: 'Seminários em Sistemas de Informação' },
+                    { nome: 'Práticas Profissionais em Sistemas de Informação' },
+                    { nome: 'Tópicos Especiais em Sistemas de Informação' },
+                    { nome: 'Trabalho de Conclusão de Curso em Sistemas de Informação' }
+                ]
+            },
+            "Administração de Empresas": {
+                "Coordenador": "Prof. José Santos",
+                "Email": "santos@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: 'Introdução à Administração' },
+                    { nome: 'Matemática Financeira' },
+                    { nome: 'Estatística Básica' },
+                    { nome: 'Fundamentos de Economia' },
+                    { nome: 'Comunicação Empresarial' }
+                ],
+                "2º Período": [
+                    { nome: 'Contabilidade Básica' },
+                    { nome: 'Economia Brasileira' },
+                    { nome: 'Teoria Geral da Administração' },
+                    { nome: 'Gestão de Pessoas' },
+                    { nome: 'Direito Empresarial' }
+                ],
+                "3º Período": [
+                    { nome: 'Gestão Financeira' },
+                    { nome: 'Marketing' },
+                    { nome: 'Administração da Produção e Operações' },
+                    { nome: 'Gestão da Qualidade' },
+                    { nome: 'Comportamento Organizacional' }
+                ],
+                "4º Período": [
+                    { nome: 'Logística Empresarial' },
+                    { nome: 'Empreendedorismo' },
+                    { nome: 'Administração Estratégica' },
+                    { nome: 'Gestão de Projetos' },
+                    { nome: 'Sistemas de Informação Gerencial' }
+                ],
+                "5º Período": [
+                    { nome: 'Administração de Vendas' },
+                    { nome: 'Negociação Empresarial' },
+                    { nome: 'Gestão Ambiental' },
+                    { nome: 'Ética e Responsabilidade Social' },
+                    { nome: 'Tópicos Especiais em Administração' }
+                ],
+                "6º Período": [
+                    { nome: 'Consultoria Empresarial' },
+                    { nome: 'Administração de Recursos Humanos' },
+                    { nome: 'Gestão de Mudanças' },
+                    { nome: 'Administração de Marketing' },
+                    { nome: 'Administração de Finanças Corporativas' }
+                ],
+                "7º Período": [
+                    { nome: 'Planejamento Estratégico' },
+                    { nome: 'Simulação Empresarial' },
+                    { nome: 'Administração de Conflitos' },
+                    { nome: 'Gestão de Crises' },
+                    { nome: 'E-business' }
+                ],
+                "8º Período": [
+                    { nome: 'Trabalho de Conclusão de Curso em Administração' },
+                    { nome: 'Estágio Supervisionado em Administração' },
+                    { nome: 'Tópicos Avançados em Administração' },
+                    { nome: 'Gestão do Conhecimento' },
+                    { nome: 'Inovação e Criatividade' }
+                ]
+            },
+            "Medicina": {
+                "Coordenador": "Prof. Luiz Garcia",
+                "Email": "luizg@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: "Anatomia Humana" },
+                    { nome: "Histologia" },
+                    { nome: "Biologia Celular" },
+                    { nome: "Embriologia" },
+                    { nome: "Bioquímica" }
+                ],
+                "2º Período": [
+                    { nome: "Fisiologia Humana" },
+                    { nome: "Patologia Geral" },
+                    { nome: "Microbiologia" },
+                    { nome: "Genética Médica" },
+                    { nome: "Parasitologia" }
+                ],
+                "3º Período": [
+                    { nome: "Farmacologia" },
+                    { nome: "Semiologia Médica" },
+                    { nome: "Bioética" },
+                    { nome: "Epidemiologia" },
+                    { nome: "Imunologia" }
+                ],
+                "4º Período": [
+                    { nome: "Semiologia Psiquiátrica" },
+                    { nome: "Psicopatologia" },
+                    { nome: "Ginecologia e Obstetrícia" },
+                    { nome: "Pediatria" },
+                    { nome: "Cirurgia Geral" }
+                ],
+                "5º Período": [
+                    { nome: "Cirurgia Plástica" },
+                    { nome: "Ortopedia" },
+                    { nome: "Neurologia" },
+                    { nome: "Oftalmologia" },
+                    { nome: "Otorrinolaringologia" }
+                ],
+                "6º Período": [
+                    { nome: "Dermatologia" },
+                    { nome: "Cardiologia" },
+                    { nome: "Pneumologia" },
+                    { nome: "Urologia" },
+                    { nome: "Endocrinologia" }
+                ],
+                "7º Período": [
+                    { nome: "Radiologia" },
+                    { nome: "Anestesiologia" },
+                    { nome: "Patologia Clínica" },
+                    { nome: "Medicina Legal" },
+                    { nome: "Psiquiatria" }
+                ],
+                "8º Período": [
+                    { nome: "Geriatria" },
+                    { nome: "Nutrição Clínica" },
+                    { nome: "Saúde Pública" },
+                    { nome: "Medicina de Família e Comunidade" },
+                    { nome: "Trabalho de Conclusão de Curso" }
+                ]
+            },
+            "Direito": {
+                "Coordenador": "Prof. Carlos Silva",
+                "Email": "carlos@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: "Introdução ao Estudo do Direito" },
+                    { nome: "Teoria Geral do Estado" },
+                    { nome: "Sociologia Jurídica" },
+                    { nome: "Filosofia do Direito" },
+                    { nome: "Direito Civil I" }
+                ],
+                "2º Período": [
+                    { nome: "Direito Penal I" },
+                    { nome: "Direito Constitucional I" },
+                    { nome: "Teoria Geral do Processo" },
+                    { nome: "Direito Administrativo I" },
+                    { nome: "Direito Empresarial I" }
+                ],
+                "3º Período": [
+                    { nome: "Direito Civil II" },
+                    { nome: "Direito Penal II" },
+                    { nome: "Direito Constitucional II" },
+                    { nome: "Direito Administrativo II" },
+                    { nome: "Direito Tributário I" }
+                ],
+                "4º Período": [
+                    { nome: "Direito Processual Civil I" },
+                    { nome: "Direito do Trabalho I" },
+                    { nome: "Direito Internacional Público" },
+                    { nome: "Direito Ambiental" },
+                    { nome: "Direito Previdenciário" }
+                ],
+                "5º Período": [
+                    { nome: "Direito Processual Penal I" },
+                    { nome: "Direito do Consumidor" },
+                    { nome: "Direito Internacional Privado" },
+                    { nome: "Direito do Trabalho II" },
+                    { nome: "Direito Empresarial II" }
+                ],
+                "6º Período": [
+                    { nome: "Direito Processual Civil II" },
+                    { nome: "Direito do Trabalho III" },
+                    { nome: "Direitos Humanos" },
+                    { nome: "Direito Civil III" },
+                    { nome: "Direito Penal III" }
+                ],
+                "7º Período": [
+                    { nome: "Direito Processual Penal II" },
+                    { nome: "Direito das Famílias" },
+                    { nome: "Direito das Sucessões" },
+                    { nome: "Direito Processual do Trabalho" },
+                    { nome: "Direito Tributário II" }
+                ],
+                "8º Período": [
+                    { nome: "Direito Processual Civil III" },
+                    { nome: "Direito Penal IV" },
+                    { nome: "Direito Empresarial III" },
+                    { nome: "Direito Internacional Público" },
+                    { nome: "Ética Profissional" }
+                ]
+            },
+            "Arquitetura": {
+                "Coordenador": "Profa. Ana Silva",
+                "Email": "ana@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: "Introdução à Arquitetura" },
+                    { nome: "Desenho Arquitetônico" },
+                    { nome: "História da Arte" },
+                    { nome: "Geometria Descritiva" },
+                    { nome: "Informática Aplicada à Arquitetura" }
+                ],
+                "2º Período": [
+                    { nome: "Projeto Arquitetônico I" },
+                    { nome: "Construção Civil I" },
+                    { nome: "Desenho Urbano" },
+                    { nome: "Teoria da Arquitetura" },
+                    { nome: "Topografia" }
+                ],
+                "3º Período": [
+                    { nome: "Projeto Arquitetônico II" },
+                    { nome: "Construção Civil II" },
+                    { nome: "Desenho Assistido por Computador" },
+                    { nome: "Materiais de Construção" },
+                    { nome: "Paisagismo" }
+                ],
+                "4º Período": [
+                    { nome: "Projeto Arquitetônico III" },
+                    { nome: "Planejamento Urbano" },
+                    { nome: "Instalações Prediais" },
+                    { nome: "Conforto Ambiental" },
+                    { nome: "Modelagem Tridimensional" }
+                ],
+                "5º Período": [
+                    { nome: "Projeto Arquitetônico IV" },
+                    { nome: "Restauração de Edificações" },
+                    { nome: "Projeto Estrutural" },
+                    { nome: "Legislação Urbana" },
+                    { nome: "Desenho Industrial" }
+                ],
+                "6º Período": [
+                    { nome: "Projeto Arquitetônico V" },
+                    { nome: "Gestão de Projetos" },
+                    { nome: "Tecnologia da Construção" },
+                    { nome: "Projeto Paisagístico" },
+                    { nome: "Arquitetura Sustentável" }
+                ],
+                "7º Período": [
+                    { nome: "Projeto Arquitetônico VI" },
+                    { nome: "Desenho Técnico" },
+                    { nome: "Gestão Ambiental" },
+                    { nome: "Projeto de Interiores" },
+                    { nome: "Acústica Arquitetônica" }
+                ],
+                "8º Período": [
+                    { nome: "Projeto Arquitetônico VII" },
+                    { nome: "Desenho Arquitetônico Avançado" },
+                    { nome: "Ética e Legislação Profissional" },
+                    { nome: "Projeto Final de Graduação" },
+                    { nome: "Estágio Supervisionado" }
+                ]
+            },
+            "Design Gráfico": {
+                "Coordenador": "Prof. Rafael Santos",
+                "Email": "rafael@gsuite.iff.edu.br",
+                "1º Período": [
+                    { nome: "Introdução ao Design Gráfico" },
+                    { nome: "Teoria do Design" },
+                    { nome: "História do Design" },
+                    { nome: "Desenho Artístico" },
+                    { nome: "Fundamentos da Computação Gráfica" }
+                ],
+                "2º Período": [
+                    { nome: "Projeto Gráfico I" },
+                    { nome: "Fotografia" },
+                    { nome: "Criação Publicitária" },
+                    { nome: "Design Editorial" },
+                    { nome: "Ilustração Digital" }
+                ],
+                "3º Período": [
+                    { nome: "Projeto Gráfico II" },
+                    { nome: "Tipografia" },
+                    { nome: "Motion Design" },
+                    { nome: "Identidade Visual" },
+                    { nome: "Web Design" }
+                ],
+                "4º Período": [
+                    { nome: "Projeto Gráfico III" },
+                    { nome: "Produção Gráfica" },
+                    { nome: "Arte Finalização" },
+                    { nome: "Branding" },
+                    { nome: "Modelagem 3D" }
+                ],
+                "5º Período": [
+                    { nome: "Projeto Gráfico IV" },
+                    { nome: "Marketing Digital" },
+                    { nome: "Gestão de Projetos Gráficos" },
+                    { nome: "Design de Embalagens" },
+                    { nome: "Animação Digital" }
+                ],
+                "6º Período": [
+                    { nome: "Projeto Gráfico V" },
+                    { nome: "Produção Audiovisual" },
+                    { nome: "Marketing de Conteúdo" },
+                    { nome: "Design de Interfaces" },
+                    { nome: "Realidade Aumentada" }
+                ],
+                "7º Período": [
+                    { nome: "Projeto Gráfico VI" },
+                    { nome: "Produção de Vídeo para Mídias Sociais" },
+                    { nome: "Gestão de Marcas" },
+                    { nome: "UX/UI Design" },
+                    { nome: "Design de Games" }
+                ],
+                "8º Período": [
+                    { nome: "Projeto Gráfico VII" },
+                    { nome: "Tecnologias Emergentes" },
+                    { nome: "Design Sustentável" },
+                    { nome: "Projeto de Identidade Visual" },
+                    { nome: "Estágio Supervisionado" }
+                ]
+            }
+        };
+
+        function toggleDisciplines(course, period) {
+            const disciplinesContainer = document.querySelector('.disciplines');
+            const isVisible = disciplinesContainer.style.display === 'block';
+
+            if (isVisible && disciplinesContainer.dataset.course === course) {
+                disciplinesContainer.style.display = 'none';
+            } else {
+                showDisciplines(course);
+            }
+        }
+
+        function toggleDisciplines(course) {
+            const disciplinesContainer = document.querySelector('.disciplines');
+            const isVisible = disciplinesContainer.style.display === 'block';
+
+            if (isVisible && disciplinesContainer.dataset.course === course) {
+                disciplinesContainer.style.display = 'none';
+            } else {
+                showDisciplines(course);
+            }
+        }
+
+        function showDisciplines(course) {
+            const disciplinesContainer = document.querySelector('.disciplines');
+            const coordenador = disciplinasPorCurso[course].Coordenador;
+            const email = disciplinasPorCurso[course].Email;
+
+            const h2 = document.createElement('h2');
+            h2.innerText = `Curso: ${course}`;
+
+            const pCoordenador = document.createElement('p');
+            pCoordenador.innerHTML = `<b>Coordenador:</b> ${coordenador} | ${email}`;
+
+            const ulDisciplinas = document.createElement('ul');
+
+            for (const period in disciplinasPorCurso[course]) {
+                if (period !== 'Coordenador' && period !== 'Email') {
+                    const periodTitle = document.createElement('h3');
+                    periodTitle.innerText = `${period}`;
+                    ulDisciplinas.appendChild(periodTitle);
+
+                    const periodDisciplinas = disciplinasPorCurso[course][period];
+                    periodDisciplinas.forEach(disciplina => {
+                        const li = document.createElement('li');
+                        li.innerText = disciplina.nome;
+                        ulDisciplinas.appendChild(li);
+                    });
+                }
+            }
+
+            disciplinesContainer.innerHTML = '';
+            disciplinesContainer.appendChild(h2);
+            disciplinesContainer.appendChild(pCoordenador);
+            disciplinesContainer.appendChild(ulDisciplinas);
+
+            disciplinesContainer.dataset.course = course;
+            disciplinesContainer.style.display = 'block';
+        }
+
+        const courseButtons = document.querySelectorAll('.course-button');
+        courseButtons.forEach(button => {
+            button.addEventListener('click', () => toggleDisciplines(button.dataset.course));
+        });
+    </script>
+</body>
+
+</html>
