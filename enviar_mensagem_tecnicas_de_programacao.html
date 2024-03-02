@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Mensagem</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+  <style>
+    
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+#buscaAlunos {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#buscaAlunos:focus {
+    outline: none;
+    border-color: #2c3e50;
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+td.checkbox-column {
+    width: 50px; 
+}
+.avatar {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+.mensagem {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#assunto {
+    width: 200px;
+}
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+.options-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+#fonte {
+    padding: 8px;
+    font-size: 16px;
+    border-color: 1px #2c3e50;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 130px; 
+}
+
+#fonte option {
+    font-size: 16px;
+    padding: 4px;
+}
+#fonte:focus 
+{
+    border-color: #2c3e50; 
+}
+#tamanho {
+    width: 60px; 
+    height: 30px; 
+    border: 1px solid #2c3e50;
+    border-radius: 5px; 
+    padding: 5px; 
+    box-sizing: border-box;
+    outline: none; 
+}
+
+#tamanho:focus {
+    border-color: #2c3e50;
+}
+#cor {
+    width: 50px;
+    height: 30px;
+    border: 1px solid #2c3e50;
+    border-radius: 5px;
+    padding: 5px; 
+    box-sizing: border-box; 
+    outline: none;
+}
+
+#cor:focus {
+    border-color: #2c3e50; 
+}
+
+.file-upload-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.file-upload-btn:hover {
+    background-color: #34495e;
+}
+
+.file-upload-btn i {
+    margin-right: 5px;
+}
+textarea {
+    margin-top: 10px;
+}
+#btnSalvar {
+    background-color: #34495e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#btnSalvar:hover {
+    background-color: #34495e;
+}
+textarea#mensagem 
+{
+    font-family: Arial, sans-serif;
+    margin-top: 10px;
+    width: 70%;
+    height: 250px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+textarea#mensagem:focus {
+    outline: none;
+    border-color: #34495e;
+}
+#destinatariosSelecionados {
+    width: 60%;
+    height: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #f9f9f9; 
+}
+
+#destinatariosSelecionados option {
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    display: block;
+    background-color: #e0e0e0; 
+}
+
+#destinatariosSelecionados option:hover {
+    background-color: #34495e; 
+    cursor: pointer;
+}
+  </style>
+<body>
+    <header>
+        <div class="container">
+            <h1>Sistema Educacional</h1>
+            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Novo E-mail</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <p>Turma: Técnicas de Programação</p><br>
+            <button type="button" id="adicionarDestinatarios">Adicionar Destinatários</button><br><br>
+            <div id="destinatariosSection" style="display: none;">
+                <label for="destinatariosSelecionados">Destinatários Selecionados:</label><br>
+                <select id="destinatariosSelecionados" multiple></select><br><br>
+            </div>
+
+            <label for="assunto">Assunto:</label>
+            <input type="text" id="assunto" name="assunto" required><br><br>
+
+            <div class="options-container">
+                <label for="fonte">Fonte:</label>
+                <select id="fonte" name="fonte">
+                    <option value="Arial, sans-serif">Arial</option>
+                    <option value="Verdana, sans-serif">Verdana</option>
+                    <option value="Times New Roman, serif">Times New Roman</option>
+                    <option value="Palatino Linotype, Book Antiqua, Palatino, serif">Palatino</option>
+<option value="Courier New, Courier, monospace">Courier New</option>
+<option value="Lucida Console, Monaco, monospace">Lucida Console</option>
+<option value="Garamond, serif">Garamond</option>
+<option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+<option value="Impact, Charcoal, sans-serif">Impact</option>
+                </select>
+                <label for="cor">Cor:</label>
+                <input type="color" id="cor" name="cor">
+
+                <label for="tamanho">Tamanho:</label>
+                <input type="number" id="tamanho" name="tamanho" min="1">
+
+              <button id="negrito"><i class="fas fa-bold"></i> Negrito</button>
+                 <button id="italico"><i class="fas fa-italic"></i> Itálico</button>
+            </div>
+            <label for="mensagem" style="margin-top: 20px;">Mensagem:</label><br>
+<textarea id="mensagem" name="mensagem" rows="6" cols="50" style="font-family: Arial, sans-serif; margin-top: 10px;"></textarea><br><br>
+
+            <button id="btnEnviar"><i class="fa fa-send-o" style="font-size:16px"></i> Enviar</button>
+           <label for="anexo" class="file-upload-btn">
+    <i class="fas fa-upload"></i> Escolher Arquivo
+</label>
+<input type="file" id="anexo" name="anexo" multiple style="display: none;">
+            <div id="mensagemEnviado" class="mensagem" style="display: none; color: #34495e;">
+    <i class="fa fa-envelope" style="color: #34495e;"></i> E-mail enviado
+</div>
+<button id="btnSalvar"><i class="fa fa-pencil"></i> Salvar em Rascunho</button>
+<div id="mensagemRascunho" class="mensagem" style="display: none; color: #34495e;">
+    <i class="fa fa-save" style="color: #34495e;"></i> Salvo em Rascunho
+</div>
+        </form>
+        <!-- Modal de Destinatários -->
+        <div id="meuModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <input type="text" id="buscaAlunos" placeholder="Buscar Alunos">
+                <button id="btnBuscar">Buscar</button>
+                <button id="btnAdicionar">Adicionar</button>
+                <table id="tabelaAlunos">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="selecionarTodos"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></th>
+                            <th>Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/WWJvD3U.jpeg" class="avatar" alt="Foto Aluno 1"> Carolina Almeida Silva (<a href="mailto:carolina@example.com">carolina@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xxaZbJD.jpeg" class="avatar" alt="Foto Aluno 2"> Juliana Ribeiro Silva (<a href="mailto:juliana@example.com">juliana@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xc4YczH.jpeg" class="avatar" alt="Foto Aluno 1"> Marcelo Fernandes Oliveira (<a href="mailto:marcelo@example.com">marcelo@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/bDQmCew.jpeg" class="avatar" alt="Foto Aluno 1"> Ana Souza Lima (<a href="mailto:ana@example.com">ana@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xc4YczH.jpeg" class="avatar" alt="Foto Aluno 1"> André Barbosa Mendes (<a href="mailto:andre@example.com">andre@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xc4YczH.jpeg" class="avatar" alt="Foto Aluno 1"> Thiago Machado Nunes (<a href="mailto:thiago@example.com">thiago@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xc4YczH.jpeg" class="avatar" alt="Foto Aluno 1"> Pedro Santos Almeida (<a href="mailto:pedro@example.com">pedro@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/bDQmCew.jpeg" class="avatar" alt="Foto Aluno 1"> Laura Costa Ribeiro (<a href="mailto:laura@example.com">laura@exemplo.com</a>)</td>
+    </tr>
+    <tr>
+        <td class="checkbox-column"><input type="checkbox"><i class="fa fa-envelope" style="font-size:20px; color: #34495e"></i></td>
+        <td><img src="https://i.imgur.com/xc4YczH.jpeg" class="avatar" alt="Foto Aluno 1"> Gabriel Lima Barbosa (<a href="mailto:gabriel@example.com">gabriel@exemplo.com</a>)</td>
+    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+  <script>
+    var modal = document.getElementById("meuModal");
+var btn = document.getElementById("adicionarDestinatarios");
+var span = document.querySelector(".close");
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+span.onclick = function() {
+    modal.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+document.getElementById("selecionarTodos").addEventListener("change", function() {
+    var checkboxes = document.querySelectorAll("#tabelaAlunos tbody input[type='checkbox']");
+    for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = this.checked;
+    }
+    if (this.checked && this.dataset.adicionarDestinatariosClicked === "true") {
+        adicionarDestinatarios();
+    }
+});
+document.getElementById("btnAdicionar").addEventListener("click", function() {
+    adicionarDestinatarios();
+    document.getElementById("selecionarTodos").dataset.adicionarDestinatariosClicked = "true";
+});
+function adicionarDestinatarios() {
+    var selectDestinatarios = document.getElementById("destinatariosSelecionados");
+    var destinatariosSection = document.getElementById("destinatariosSection");
+
+    var checkboxes = document.querySelectorAll("#tabelaAlunos tbody input[type=checkbox]");
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+            var nomeAluno = checkbox.parentElement.nextElementSibling.textContent.trim();
+            var destinatarioExistente = Array.from(selectDestinatarios.options).some(function(option) {
+                return option.text === nomeAluno;
+            });
+            if (!destinatarioExistente) {
+                var destinatarioOption = document.createElement("option");
+                destinatarioOption.textContent = nomeAluno;
+                selectDestinatarios.appendChild(destinatarioOption);
+            }
+
+            destinatariosSection.style.display = "block";
+        }
+    });
+
+    closeModal();
+}
+
+function closeModal() {
+    modal.style.display = "none";
+}
+document.getElementById("adicionarDestinatarios").addEventListener("click", function() {
+    modal.style.display = "block";
+    document.getElementById("selecionarTodos").dataset.adicionarDestinatariosClicked = "false";
+});
+window.addEventListener("click", function(event) {
+    if (event.target == modal) {
+        closeModal();
+    }
+});
+document.getElementById("btnEnviar").addEventListener("click", function(event) {
+    event.preventDefault();
+    var mensagem = document.getElementById("mensagemEnviado");
+    mensagem.style.display = "block";
+setTimeout(function() {
+        mensagem.style.display = "none";
+    }, 3000);
+    setTimeout(closeModal, 3000);
+   
+});
+document.getElementById("btnSalvar").addEventListener("click", function(event) {
+    event.preventDefault();
+    var mensagemRascunho = document.getElementById("mensagemRascunho");
+    mensagemRascunho.style.display = "block";
+    setTimeout(function() {
+        mensagemRascunho.style.display = "none";
+    }, 3000);
+});
+
+document.getElementById('fonte').addEventListener('change', function() {
+    var fonteSelecionada = this.value;
+    document.getElementById('mensagem').style.fontFamily = fonteSelecionada;
+});
+document.getElementById('cor').addEventListener('change', function() {
+    var corSelecionada = this.value;
+    document.getElementById('mensagem').style.color = corSelecionada;
+});
+document.getElementById('tamanho').addEventListener('input', function() {
+    var tamanhoSelecionado = this.value + 'px';
+    document.getElementById('mensagem').style.fontSize = tamanhoSelecionado;
+});
+</script>
+</body>
+</html>
