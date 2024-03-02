@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Trabalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container p {
+            text-align: center;
+        }
+
+        form,
+        #filtroData {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: inline-block;
+            width: 100%;
+            vertical-align: top;
+            box-sizing: border-box;
+            margin-right: 20px;
+        }
+
+        form {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        label,
+        p,
+        span,
+        h3,
+        h4 {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+        }
+
+        span {
+            font-weight: initial;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            background-color: #2c3e50;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        #filtroData {
+            display: none;
+        }
+
+        #dataEntrega {
+            width: 100px;
+        }
+
+        #trabalhos {
+            display: inline-block;
+            width: 100%;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        #trabalhos .trabalho {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #trabalhos .trabalho h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #trabalhos .trabalho p {
+            margin-bottom: 10px;
+        }
+
+        #trabalhos .trabalho button {
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #trabalhos .trabalho button:hover {
+            background-color: #34495e;
+        }
+
+        #novoTrabalhoForm button,
+        #listarTrabalhosBtn {
+            margin-bottom: 15px;
+        }
+
+        #mensagemErro {
+            margin-top: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #f5c6cb;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Bem-vindo, Professor</h1>
+            <p>Aqui, você pode acessar diversas funcionalidades como professor.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+            <h2 id="tituloPagina">Adicionar Trabalho</h2>
+            <div id="mensagemErro" style="display: none;"></div>
+            <form id="novoTrabalhoForm" style="display: none;">
+                <label for="curso">Curso: <span id="nomeCurso"></span></label>
+
+                <label for="disciplina">Disciplina: <span id="nomeDisciplina"></span></label>
+
+                <label for="dataEntrega">Data de Entrega: <input type="date" id="dataEntrega"></label>
+
+                <label for="contexto">Contexto do Trabalho:</label>
+                <textarea id="contexto" rows="4" cols="30"></textarea>
+
+                <button type="submit">Adicionar Trabalho</button>
+            </form>
+            <button id="listarTrabalhosBtn" style="display:none;">Listar Trabalhos</button>
+
+            <div id="filtroData">
+                <label for="dataFiltro">Filtrar por Data</label>
+                <input type="date" id="dataFiltro">
+            </div>
+
+            <div id="trabalhos"></div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function obterParametrosConsulta() {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            return Object.fromEntries(urlParams.entries());
+        }
+
+        function validarFormulario() {
+            const contexto = document.getElementById('contexto').value.trim();
+            const dataEntrega = document.getElementById('dataEntrega').value.trim();
+
+            if (contexto === '' || dataEntrega === '') {
+                const mensagemErro = document.getElementById('mensagemErro');
+                mensagemErro.textContent = 'Por favor, preencha todos os campos.';
+                mensagemErro.style.display = 'block';
+                return false;
+            }
+
+            return true;
+        }
+
+        const parametros = obterParametrosConsulta();
+        const mensagemErro = document.getElementById('mensagemErro');
+
+        if (parametros && parametros.disciplina && parametros.curso) {
+            const nomeDisciplina = decodeURIComponent(parametros.disciplina);
+            const cursoDisciplina = decodeURIComponent(parametros.curso);
+            document.title = `Adicionar Trabalho - ${cursoDisciplina} - ${nomeDisciplina}`;
+            document.getElementById('nomeCurso').textContent = cursoDisciplina;
+            document.getElementById('nomeDisciplina').textContent = nomeDisciplina;
+            document.getElementById('novoTrabalhoForm').style.display = 'block';
+        } else {
+            mensagemErro.textContent = 'Parâmetros de disciplina e/ou curso ausentes na URL.';
+            mensagemErro.style.display = 'block';
+            const footer = document.querySelector('footer');
+            footer.style.position = 'fixed';
+            footer.style.bottom = '0';
+        }
+
+        const novoTrabalhoForm = document.getElementById('novoTrabalhoForm');
+        const trabalhosDiv = document.getElementById('trabalhos');
+        const listarTrabalhosBtn = document.getElementById('listarTrabalhosBtn');
+        const filtroDataDiv = document.getElementById('filtroData');
+        const dataFiltroInput = document.getElementById('dataFiltro');
+
+        novoTrabalhoForm.addEventListener('submit', function (event) {
+            mensagemErro.style.display = 'none';
+
+            event.preventDefault();
+
+            if (validarFormulario()) {
+                const curso = document.getElementById('nomeCurso').textContent;
+                const disciplina = document.getElementById('nomeDisciplina').textContent;
+                let dataEntrega = document.getElementById('dataEntrega').value;
+                const contexto = document.getElementById('contexto').value;
+
+                const hoje = new Date();
+                const dia = hoje.getDate().toString().padStart(2, '0');
+                const mes = (hoje.getMonth() + 1).toString().padStart(2, '0');
+                const ano = hoje.getFullYear();
+                const dataAtualFormatada = `${dia}/${mes}/${ano}`;
+
+                if (dataEntrega < dataAtualFormatada) {
+                    dataEntrega = dataAtualFormatada;
+                }
+
+                dataEntrega = dataAtualFormatada;
+
+                adicionarTrabalho(curso, disciplina, dataEntrega, contexto);
+                listarTrabalhos();
+                novoTrabalhoForm.reset();
+            }
+        });
+
+        const trabalhos = [
+            {
+                id: 1,
+                curso: 'BSI',
+                disciplina: 'Lab de Orientação a Objetos',
+                dataEntrega: '15/01/2024',
+                contexto: 'Trabalho sobre loops e condicionais',
+                alunos: [
+                    { nome: 'João', dataEnvio: '18/01/2024', titulo: 'Loops e Condicionais' },
+                    { nome: 'Maria', dataEnvio: '18/01/2024', titulo: '#' }
+                ]
+            }
+        ];
+
+        function adicionarTrabalho(curso, disciplina, dataEntrega, contexto) {
+            const novoTrabalho = {
+                id: trabalhos.length + 1,
+                curso: curso,
+                disciplina: disciplina,
+                dataEntrega: dataEntrega,
+                contexto: contexto,
+                alunos: []
+            };
+            trabalhos.push(novoTrabalho);
+        }
+
+        function listarTrabalhos() {
+            const curso = document.getElementById('nomeCurso').textContent;
+            const disciplina = document.getElementById('nomeDisciplina').textContent;
+
+            const trabalhosFiltrados = trabalhos.filter(trabalho => {
+                return trabalho.disciplina === disciplina;
+            });
+
+            trabalhosDiv.innerHTML = '';
+
+            trabalhosFiltrados.forEach(trabalho => {
+                if (trabalho.contexto != "" && trabalho.dataEntrega != "") {
+                    const trabalhoDiv = document.createElement('div');
+                    trabalhoDiv.classList.add('trabalho');
+                    trabalhoDiv.innerHTML = `
+                    <h3>${trabalho.curso} - ${trabalho.disciplina}</h3>
+                    <p><strong>Data de Entrega:</strong> ${trabalho.dataEntrega}</p>
+                    <p><strong>Contexto:</strong> ${trabalho.contexto}</p>
+                    <button class="listar-alunos-btn" onclick="listarAlunos(${trabalho.id})">Listar Alunos</button>
+                    <div id="alunos-${trabalho.id}" style="display:none">
+                        <h4>Alunos:</h4>
+                        <ul id="alunos-list-${trabalho.id}"></ul>
+                    </div>`;
+                    trabalhosDiv.appendChild(trabalhoDiv);
+                }
+            });
+
+            if (trabalhosFiltrados.length > 0) {
+                filtroDataDiv.style.display = 'block';
+            } else {
+                filtroDataDiv.style.display = 'none';
+            }
+        }
+
+        function listarAlunos(trabalhoId) {
+            const alunosDiv = document.getElementById(`alunos-${trabalhoId}`);
+            const alunosList = document.getElementById(`alunos-list-${trabalhoId}`);
+            alunosList.innerHTML = '';
+
+            trabalhos.forEach(trabalho => {
+                if (trabalho.id === trabalhoId) {
+                    trabalho.alunos.forEach(aluno => {
+                        const alunoItem = document.createElement('li');
+                        let entregaStatus;
+                        if (aluno.titulo && aluno.titulo !== '#') {
+                            entregaStatus = 'Entregue';
+                            const linkPaginaTrabalho = `exibir_trabalho.html?titulo=${encodeURIComponent(trabalho.titulo)}&aluno=${encodeURIComponent(aluno.nome)}&curso=${encodeURIComponent(trabalho.curso)}&disciplina=${encodeURIComponent(trabalho.disciplina)}`;
+                            alunoItem.innerHTML = `<span>${aluno.nome} - ${aluno.dataEnvio} - ${entregaStatus}</span> - <a href="${linkPaginaTrabalho}" target="_blank">Visualizar Trabalho</a>`;
+                        } else {
+                            entregaStatus = 'Não entregue';
+                            alunoItem.textContent = `${aluno.nome} - ${aluno.dataEnvio} - ${entregaStatus}`;
+                        }
+                        alunosList.appendChild(alunoItem);
+                    });
+                }
+            });
+
+            alunosDiv.style.display = alunosDiv.style.display === 'none' ? 'block' : 'none';
+        }
+
+        let trabalhosVisiveis = false;
+
+        listarTrabalhosBtn.addEventListener('click', function () {
+            if (trabalhosVisiveis) {
+                trabalhosDiv.innerHTML = '';
+                trabalhosDiv.style.display = 'none';
+                filtroDataDiv.style.display = 'none';
+                trabalhosVisiveis = false;
+            } else {
+                trabalhosDiv.style.display = 'block';
+                trabalhosVisiveis = true;
+                listarTrabalhos();
+            }
+        });
+        dataFiltroInput.addEventListener('change', function () {
+            let dataFiltro = dataFiltroInput.value;
+            const partesData = dataFiltro.split('-');
+            const dia = partesData[2];
+            const mes = partesData[1];
+            const ano = partesData[0];
+            dataFiltro = `${dia}/${mes}/${ano}`;
+
+            const curso = document.getElementById('nomeCurso').textContent;
+            const disciplina = document.getElementById('nomeDisciplina').textContent;
+
+            const trabalhosFiltrados = trabalhos.filter(trabalho => {
+                return trabalho.disciplina === disciplina && trabalho.dataEntrega === dataFiltro;
+            });
+
+            trabalhosDiv.innerHTML = '';
+
+            trabalhosFiltrados.forEach(trabalho => {
+                if (trabalho.contexto != "" && trabalho.dataEntrega != "") {
+                    const trabalhoDiv = document.createElement('div');
+                    trabalhoDiv.classList.add('trabalho');
+                    trabalhoDiv.innerHTML = `
+                    <h3>${trabalho.curso} - ${trabalho.disciplina}</h3>
+                    <p><strong>Data de Entrega:</strong> ${trabalho.dataEntrega}</p>
+                    <p><strong>Contexto:</strong> ${trabalho.contexto}</p>
+                    <button class="listar-alunos-btn" onclick="listarAlunos(${trabalho.id})">Listar Alunos</button>
+                    <div id="alunos-${trabalho.id}" style="display:none">
+                        <h4>Alunos:</h4>
+                        <ul id="alunos-list-${trabalho.id}"></ul>
+                    </div>`;
+                    trabalhosDiv.appendChild(trabalhoDiv);
+                }
+            });
+        });
+
+        function verificarTrabalhos() {
+            const curso = document.getElementById('nomeCurso').textContent;
+            const disciplina = document.getElementById('nomeDisciplina').textContent;
+
+            const trabalhosDaDisciplina = trabalhos.filter(trabalho => {
+                return trabalho.curso === curso && trabalho.disciplina === disciplina;
+            });
+
+            return trabalhosDaDisciplina.length > 0;
+        }
+
+        function exibirListarTrabalhosBtn() {
+            const button = document.getElementById('listarTrabalhosBtn');
+            if (verificarTrabalhos()) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', function () {
+            const dataEntregaInput = document.getElementById('dataEntrega');
+            const hoje = new Date().toISOString().split('T')[0];
+            dataEntregaInput.value = hoje;
+            exibirListarTrabalhosBtn();
+        });
+    </script>
+</body>
+
+</html>
