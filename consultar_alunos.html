@@ -25,8 +25,8 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
 <body>
     <header>
         <div class="container">
-            <h1>Sistema Educacional</h1>
-            <p>Bem-vindo ao nosso sistema educacional. Aqui você pode acessar diversas funcionalidades.</p>
+            <h1>Bem-vindo, Professor</h1>
+            <p>Aqui, você pode acessar diversas funcionalidades como professor.</p>
         </div>
     </header>
     <nav>
@@ -94,6 +94,8 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 <div id="resultadosBusca">
                     <button id="listarAlunosButton" type="button" style="display: none;">Listar Alunos</button>
                     <button id="enviarMaterialButton" type="button" style="display: none;">Enviar Material</button>
+                    <button id="adicionarTrabalhoButton" type="button" style="display: none;">Adicionar
+                        Trabalho</button>
                     <button id="abrirDiarioButton" type="button" style="display: none;">Diário</button>
                 </div>
             </div>
@@ -123,6 +125,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
         const numeroAulasDisciplina = document.getElementById('numeroAulasDisciplina');
         const listarAlunosButton = document.getElementById('listarAlunosButton');
         const enviarMaterialButton = document.getElementById('enviarMaterialButton');
+        const adicionarTrabalhoButton = document.getElementById('adicionarTrabalhoButton');
         const abrirDiarioButton = document.getElementById('abrirDiarioButton');
 
         // Logica para o botão de busca funcionarr
@@ -146,6 +149,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 // Tornar os botões visiveis na tela
                 listarAlunosButton.style.display = 'inline-block';
                 enviarMaterialButton.style.display = 'inline-block';
+                adicionarTrabalhoButton.style.display = 'inline-block';
                 abrirDiarioButton.style.display = 'inline-block';
 
                 resultadosBusca.querySelectorAll('.disciplina').forEach(item => {
@@ -173,6 +177,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
                 listarAlunosButton.style.display = 'none';
                 enviarMaterialButton.style.display = 'none';
+                adicionarTrabalhoButton.style.display = 'none';
                 abrirDiarioButton.style.display = 'none';
                 document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
             } else {
@@ -185,6 +190,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             <option value="BSI/090" informacao-da-disciplina="Introdução aos conceitos e técnicas de inteligência artificial." carga-horaria="60 hrs (3 tempos)" periodo="5º período" numero-aulas="47">Inteligência Artificial (BSI)</option>`;
                         listarAlunosButton.style.display = 'none';
                         enviarMaterialButton.style.display = 'none';
+                        adicionarTrabalhoButton.style.display = 'none';
                         abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
@@ -194,6 +200,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
                         listarAlunosButton.style.display = 'none';
                         enviarMaterialButton.style.display = 'none';
+                        adicionarTrabalhoButton.style.display = 'none';
                         abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
@@ -239,6 +246,14 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
 
         abrirDiarioButton.addEventListener('click', function () {
             window.location.href = '#';
+        });
+
+        adicionarTrabalhoButton.addEventListener('click', function () {
+            const disciplinaSelect = document.getElementById('disciplinaSelect');
+            const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+            const cursoDisciplina = disciplinaSelect.value.split('/')[0];
+            const queryParams = `?disciplina=${encodeURIComponent(nomeDisciplina)}&curso=${encodeURIComponent(cursoDisciplina)}`;
+            window.location.href = `adicionar_trabalho.html${queryParams}`;
         });
     </script>
 </body>
