@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exibir Trabalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .container p {
+            text-align: center;
+        }
+
+        #trabalho {
+            width: 80%;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        label,
+        p,
+        span,
+        h3,
+        h4,
+        input {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+        }
+
+        textarea {
+            width: calc(100% - 22px);
+            padding: 5px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            max-width: 50%;
+            resize: vertical;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .nota-container,
+        .comentario-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .nota-container button,
+        .nota-container input,
+        .comentario-container button,
+        .comentario-container textarea {
+            flex: 0 0 auto;
+            padding: 8px 12px;
+            margin-right: 5px;
+        }
+
+        button {
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2c3e50;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        #notaLabel {
+            display: block;
+        }
+
+        #comentarioLabel,
+        #comentario,
+        #salvarComentarioButton,
+        #editarComentarioButton,
+        #comentarioExibido {
+            display: none;
+        }
+
+        #adicionarComentarioButton {
+            display: block;
+        }
+
+        .comentario-exibido {
+            margin-top: 10px;
+        }
+
+        .file-icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Bem-vindo, Professor</h1>
+            <p>Aqui, você pode acessar diversas funcionalidades como professor.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="trabalho">
+            <h2 id="tituloTrabalho"></h2>
+            <p><strong>Aluno:</strong> <span id="nomeAluno"></span></p>
+            <p><strong>Curso:</strong> <span id="nomeCurso"></span></p>
+            <p><strong>Disciplina:</strong> <span id="nomeDisciplina"></span></p>
+            <p><strong>Título:</strong> <span id="nomeTitulo"></span></p>
+            <p><strong>Data Prevista de Entrega:</strong> <span id="dataPrevistaEntrega"></span></p>
+            <p><strong>Data que foi Entregue:</strong> <span id="dataEnvio"></span></p>
+            <i class="far fa-file file-icon"></i>
+            
+
+            <div class="nota-container">
+                <label id="notaLabel" for="nota">Digite a Nota:</label>
+                <input type="number" id="nota" name="nota" min="0" max="10">
+                <button id="salvarButton" onclick="confirmarSalvarAvaliacao()">Avaliar Trabalho</button>
+            </div>
+            <div id="avaliacao" style="display: none;">
+                <p>Aluno avaliado: <span id="alunoAvaliado"></span></p>
+                <p>Nota: <span id="notaExibida"></span></p>
+                <button onclick="confirmarEditarNota()">Editar Nota</button>
+            </div>
+            <div class="comentario-container">
+                <p id="comentarioLabel">Digite o Comentário:</p>
+
+                <textarea id="comentario" name="comentario" rows="4" cols="50"></textarea>
+                <button id="salvarComentarioButton" onclick="salvarComentario()">Salvar Comentário</button>
+                <button id="adicionarComentarioButton" onclick="adicionarComentario()">Adicionar Comentário</button>
+                <button id="editarComentarioButton" onclick="editarComentario()">Editar Comentário</button>
+            </div>
+            <div id="comentarioExibido" class="comentario-exibido">
+                <p><strong>Comentário:</strong> <span id="comentarioExibidoTexto"></span></p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const aluno = urlParams.get('aluno');
+        const curso = urlParams.get('curso');
+        const disciplina = urlParams.get('disciplina');
+        const titulo = urlParams.get('titulo');
+        const dataEnvio = urlParams.get('dataEnvio');
+        const dataPrevistaEntrega = urlParams.get('dataPrevistaEntrega');
+
+        const trabalhoDiv = document.getElementById('trabalho');
+        document.getElementById('nomeAluno').textContent = aluno;
+        document.getElementById('nomeCurso').textContent = curso;
+        document.getElementById('nomeDisciplina').textContent = disciplina;
+        document.getElementById('nomeTitulo').textContent = titulo;
+        document.getElementById('dataEnvio').textContent = dataEnvio;
+        document.getElementById('dataPrevistaEntrega').textContent = dataPrevistaEntrega;
+
+        function visualizarTrabalho(alunoNome, curso, disciplina, alunoTitulo, dataEnvio, dataPrevistaEntrega) {
+            const url = `exibir_trabalho.html?aluno=${encodeURIComponent(alunoNome)}&curso=${encodeURIComponent(curso)}&disciplina=${encodeURIComponent(disciplina)}&titulo=${encodeURIComponent(alunoTitulo)}&dataEnvio=${encodeURIComponent(dataEnvio)}&dataPrevistaEntrega=${encodeURIComponent(dataPrevistaEntrega)}`;
+            window.location.href = url;
+        }
+
+        function confirmarSalvarAvaliacao() {
+            if (confirm('Deseja salvar a avaliação com a nota digitada?')) {
+                salvarAvaliacao();
+            }
+        }
+
+        function salvarAvaliacao() {
+            const nota = parseFloat(document.getElementById('nota').value);
+            if (isNaN(nota) || nota < 0 || nota > 10) {
+                alert('Por favor, digite uma nota válida entre 0 e 10.');
+                return;
+            }
+
+            document.getElementById('avaliacao').style.display = 'block';
+            document.getElementById('alunoAvaliado').textContent = aluno;
+            document.getElementById('notaExibida').textContent = nota;
+
+            document.getElementById('notaLabel').style.display = 'none';
+            document.getElementById('nota').style.display = 'none';
+            document.getElementById('salvarButton').style.display = 'none';
+        }
+
+        function confirmarEditarNota() {
+            if (confirm('Deseja editar a nota?')) {
+                editarNota();
+            }
+        }
+
+        function editarNota() {
+            document.getElementById('notaLabel').style.display = 'block';
+            document.getElementById('nota').style.display = 'block';
+            document.getElementById('salvarButton').style.display = 'block';
+
+            document.getElementById('nota').focus();
+        }
+
+        function adicionarComentario() {
+            document.getElementById('salvarComentarioButton').style.display = 'block';
+            document.getElementById('adicionarComentarioButton').style.display = 'none';
+            document.getElementById('comentarioLabel').style.display = 'block';
+            document.getElementById('comentario').style.display = 'block';
+        }
+
+        function salvarComentario() {
+            const comentario = document.getElementById('comentario').value;
+            if (comentario.trim() === '') {
+                alert('Por favor, adicione um comentário.');
+                return;
+            }
+
+            document.getElementById('comentarioExibidoTexto').textContent = comentario;
+            document.getElementById('comentarioExibido').style.display = 'block';
+            document.getElementById('editarComentarioButton').style.display = 'block';
+
+            document.getElementById('comentario').style.display = 'none';
+            document.getElementById('adicionarComentarioButton').style.display = 'none';
+            document.getElementById('salvarComentarioButton').style.display = 'none';
+
+            document.getElementById('comentarioLabel').style.display = 'none';
+        }
+
+        function editarComentario() {
+            document.getElementById('comentario').style.display = 'block';
+            document.getElementById('salvarComentarioButton').style.display = 'block';
+            document.getElementById('editarComentarioButton').style.display = 'none';
+            document.getElementById('comentarioLabel').style.display = 'block';
+
+            document.getElementById('comentario').focus();
+        }
+    </script>
+
+</body>
+</html>
