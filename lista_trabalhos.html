@@ -298,7 +298,9 @@
                             let entregaStatus;
                             if (aluno.titulo && aluno.titulo !== '#') {
                                 entregaStatus = 'Entregue';
-                                const linkPaginaTrabalho = `exibir_trabalho.html?titulo=${encodeURIComponent(trabalho.titulo)}&aluno=${encodeURIComponent(aluno.nome)}&curso=${encodeURIComponent(trabalho.curso)}&disciplina=${encodeURIComponent(trabalho.disciplina)}`;
+                                //
+                                const linkPaginaTrabalho = `exibir_trabalho.html?titulo=${encodeURIComponent(aluno.titulo)}&aluno=${encodeURIComponent(aluno.nome)}&curso=${encodeURIComponent(trabalho.curso)}&disciplina=${encodeURIComponent(trabalho.disciplina)}&dataEnvio=${encodeURIComponent(aluno.dataEnvio)}&dataPrevistaEntrega=${encodeURIComponent(trabalho.dataEntrega)}`;
+                                //
                                 alunoItem.innerHTML = `<span>${aluno.nome} - ${aluno.dataEnvio} - ${entregaStatus}</span> - <a href="${linkPaginaTrabalho}" target="_blank">Visualizar Trabalho</a>`;
                             } else {
                                 entregaStatus = 'Não entregue';
