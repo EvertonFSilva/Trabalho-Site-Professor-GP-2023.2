@@ -93,7 +93,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 <p id="numeroAulasDisciplina"></p>
                 <div id="resultadosBusca">
                     <button id="listarAlunosButton" type="button" style="display: none;">Listar Alunos</button>
-                    <button id="enviarMaterialButton" type="button" style="display: none;">Enviar Material</button>
+                     <button id="enviarMensagemButton" type="button" style="display: none;">Enviar Mensagem</button>
                     <button id="adicionarTrabalhoButton" type="button" style="display: none;">Adicionar
                         Trabalho</button>
                     <button id="abrirDiarioButton" type="button" style="display: none;">Diário</button>
@@ -124,7 +124,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
         const periodoDisciplina = document.getElementById('periodoDisciplina');
         const numeroAulasDisciplina = document.getElementById('numeroAulasDisciplina');
         const listarAlunosButton = document.getElementById('listarAlunosButton');
-        const enviarMaterialButton = document.getElementById('enviarMaterialButton');
+        const enviarMensagemButton = document.getElementById('enviarMensagemButton');
         const adicionarTrabalhoButton = document.getElementById('adicionarTrabalhoButton');
         const abrirDiarioButton = document.getElementById('abrirDiarioButton');
 
@@ -148,7 +148,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
 
                 // Tornar os botões visiveis na tela
                 listarAlunosButton.style.display = 'inline-block';
-                enviarMaterialButton.style.display = 'inline-block';
+                enviarMensagemButton.style.display = 'inline-block';
                 adicionarTrabalhoButton.style.display = 'inline-block';
                 abrirDiarioButton.style.display = 'inline-block';
 
@@ -176,7 +176,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             <option value="BEC/045" informacao-da-disciplina="Estudo de algoritmos e suas técnicas de programação." carga-horaria="80 hrs (4 tempos)" periodo="7º período" numero-aulas="97">Algoritmos e Técnicas de Programação</option>
             <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
                 listarAlunosButton.style.display = 'none';
-                enviarMaterialButton.style.display = 'none';
+                enviarMensagemButton.style.display = 'none';
                 adicionarTrabalhoButton.style.display = 'none';
                 abrirDiarioButton.style.display = 'none';
                 document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
@@ -189,7 +189,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             <option value="BSI/056" informacao-da-disciplina="Laboratório prático para aplicação dos conceitos de POO." carga-horaria="80 hrs (4 tempos)" periodo="5º período" numero-aulas="96">Lab de Orientação a Objetos</option>
             <option value="BSI/090" informacao-da-disciplina="Introdução aos conceitos e técnicas de inteligência artificial." carga-horaria="60 hrs (3 tempos)" periodo="5º período" numero-aulas="47">Inteligência Artificial (BSI)</option>`;
                         listarAlunosButton.style.display = 'none';
-                        enviarMaterialButton.style.display = 'none';
+                        enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
                         abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
@@ -199,7 +199,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                     <option value="BEC/045" informacao-da-disciplina="Estudo de algoritmos e suas técnicas de programação." carga-horaria="80 hrs (4 tempos)" periodo="7º período" numero-aulas="97">Algoritmos e Técnicas de Programação</option>
             <option value="BEC/054" informacao-da-disciplina="Aplicação de técnicas de IA em ambientes empresariais." carga-horaria="60 hrs (3 tempos)" periodo="7º período" numero-aulas="48">Inteligência Artificial (BEC)`;
                         listarAlunosButton.style.display = 'none';
-                        enviarMaterialButton.style.display = 'none';
+                        enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
                         abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
@@ -240,9 +240,40 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             }
         });
 
-        enviarMaterialButton.addEventListener('click', function () {
-            window.location.href = '#';
-        });
+        enviarMensagemButton.addEventListener('click', function () {
+    const disciplinaSelect = document.getElementById('disciplinaSelect');
+    const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+    const cursoDisciplina = disciplinaSelect.value.split('/')[0];
+    
+    switch (cursoDisciplina) {
+        case 'BSI':
+            switch (nomeDisciplina) {
+                case 'Técnicas de Programação':
+                    window.location.href = 'enviar_mensagem_tecnicas_de_programacao.html';
+                    break;
+                case 'Programação Orientada a Objetos':
+                    window.location.href = 'enviar_mensagem_poo.html'; 
+                    break;
+                case 'Lab de Orientação a Objetos':
+                    window.location.href = '#';
+                    break;
+                case 'Inteligência Artificial (BSI)':
+                    window.location.href = '#';
+                    break;
+            }
+            break;
+        case 'BEC':
+            switch (nomeDisciplina) {
+                case 'Inteligência Artificial (BEC)':
+                    window.location.href = '#';
+                    break;
+                case 'Algoritmos e Técnicas de Programação':
+                    window.location.href = '#';
+                    break;
+            }
+            break;
+    }
+});
 
         abrirDiarioButton.addEventListener('click', function () {
             window.location.href = '#';
