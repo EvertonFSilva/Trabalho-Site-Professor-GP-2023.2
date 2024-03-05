@@ -96,7 +96,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                      <button id="enviarMensagemButton" type="button" style="display: none;">Enviar Mensagem</button>
                     <button id="adicionarTrabalhoButton" type="button" style="display: none;">Adicionar
                         Trabalho</button>
-                    <button id="abrirDiarioButton" type="button" style="display: none;">Diário</button>
                 </div>
             </div>
         </div>
@@ -126,7 +125,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
         const listarAlunosButton = document.getElementById('listarAlunosButton');
         const enviarMensagemButton = document.getElementById('enviarMensagemButton');
         const adicionarTrabalhoButton = document.getElementById('adicionarTrabalhoButton');
-        const abrirDiarioButton = document.getElementById('abrirDiarioButton');
 
         // Logica para o botão de busca funcionarr
         buscarButton.addEventListener('click', function () {
@@ -150,7 +148,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 listarAlunosButton.style.display = 'inline-block';
                 enviarMensagemButton.style.display = 'inline-block';
                 adicionarTrabalhoButton.style.display = 'inline-block';
-                abrirDiarioButton.style.display = 'inline-block';
 
                 resultadosBusca.querySelectorAll('.disciplina').forEach(item => {
                     item.querySelector('.botoes-disciplina').remove();
@@ -178,7 +175,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 listarAlunosButton.style.display = 'none';
                 enviarMensagemButton.style.display = 'none';
                 adicionarTrabalhoButton.style.display = 'none';
-                abrirDiarioButton.style.display = 'none';
                 document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
             } else {
                 switch (cursoSelecionado) {
@@ -191,7 +187,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                         listarAlunosButton.style.display = 'none';
                         enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
-                        abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
                     case 'BEC':
@@ -201,7 +196,6 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                         listarAlunosButton.style.display = 'none';
                         enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
-                        abrirDiarioButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
                 }
@@ -240,45 +234,12 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             }
         });
 
-        enviarMensagemButton.addEventListener('click', function () {
+       enviarMensagemButton.addEventListener('click', function () {
     const disciplinaSelect = document.getElementById('disciplinaSelect');
     const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
-    const cursoDisciplina = disciplinaSelect.value.split('/')[0];
-    
-    switch (cursoDisciplina) {
-        case 'BSI':
-            switch (nomeDisciplina) {
-                case 'Técnicas de Programação':
-                    window.location.href = 'enviar_mensagem_tecnicas_de_programacao.html';
-                    break;
-                case 'Programação Orientada a Objetos':
-                    window.location.href = 'enviar_mensagem_poo.html'; 
-                    break;
-                case 'Lab de Orientação a Objetos':
-                    window.location.href = '#';
-                    break;
-                case 'Inteligência Artificial (BSI)':
-                    window.location.href = '#';
-                    break;
-            }
-            break;
-        case 'BEC':
-            switch (nomeDisciplina) {
-                case 'Inteligência Artificial (BEC)':
-                    window.location.href = '#';
-                    break;
-                case 'Algoritmos e Técnicas de Programação':
-                    window.location.href = '#';
-                    break;
-            }
-            break;
-    }
+    const parametro = `?disciplina=${encodeURIComponent(nomeDisciplina)}`;
+    window.location.href = `enviar_mensagem.html${parametro}`;
 });
-
-        abrirDiarioButton.addEventListener('click', function () {
-            window.location.href = '#';
-        });
-
         adicionarTrabalhoButton.addEventListener('click', function () {
             const disciplinaSelect = document.getElementById('disciplinaSelect');
             const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
