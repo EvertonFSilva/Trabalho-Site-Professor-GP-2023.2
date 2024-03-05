@@ -251,7 +251,7 @@ textarea#mensagem:focus {
     <div class="container">
         <h1>Novo E-mail</h1>
         <form method="POST" enctype="multipart/form-data">
-            <p>Turma: Programação Orientada a Objetos</p><br>
+            <p>Turma: <span id="nomeDisciplina"></span></p><br>
             <button type="button" id="adicionarDestinatarios">Adicionar Destinatários</button><br><br>
             <div id="destinatariosSection" style="display: none;">
                 <label for="destinatariosSelecionados">Destinatários Selecionados:</label><br>
@@ -366,7 +366,18 @@ textarea#mensagem:focus {
         </div>
     </footer>
   <script>
-    var modal = document.getElementById("meuModal");
+       function obterParametros() {
+            const parametroString = window.location.search;
+            const urlParams = new URLSearchParams(parametroString);
+            return Object.fromEntries(urlParams.entries());
+        }
+		document.addEventListener("DOMContentLoaded", function() {
+    var parametros = obterParametros();
+    if (parametros.disciplina) {
+        document.getElementById("nomeDisciplina").textContent = decodeURIComponent(parametros.disciplina);
+    }
+});
+var modal = document.getElementById("meuModal");
 var btn = document.getElementById("adicionarDestinatarios");
 var span = document.querySelector(".close");
 btn.onclick = function() {
