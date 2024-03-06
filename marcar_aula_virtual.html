@@ -39,7 +39,9 @@
         }
 
         input[type="text"],
-        textarea {
+        textarea,
+        input[type="datetime-local"],
+        input[type="number"] {
             width: calc(100% - 20px);
             padding: 10px;
             margin-bottom: 15px;
@@ -63,8 +65,8 @@
         }
 
         #gerarLinkMeetButton {
-        margin-bottom: 10px; 
-    }
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -98,14 +100,24 @@
                 <p>Turma: <span id="nomeDisciplina"></span></p><br>
                 <div id="mensagemErro" style="display: none;"></div>
                 <form id="marcarAulaVirtualForm">
+                    <label for="dataHoraAula">Data e Hora da Aula:</label>
+                    <input type="datetime-local" id="dataHoraAula" required>
+
+                    <label for="duracaoAula">Duração da Aula (em minutos):</label>
+                    <input type="number" id="duracaoAula" min="1" required>
+
+                    <label for="temaAula">Tema da Aula:</label>
+                    <input type="text" id="temaAula" required>
+
                     <label for="mensagemAula">Mensagem:</label>
                     <textarea id="mensagemAula" rows="4" cols="30"></textarea>
 
                     <label for="linkMeet">Link do Meet:</label>
                     <input type="text" id="linkMeet" readonly>
+                    
                     <button id="gerarLinkMeetButton" type="button">Gerar Sala do Meet</button>
 
-                    <button id="confirmarAulaButton" type="button">Confirmar Aula Virtual</button>
+                    <button id="confirmarAulaButton" type="button">Confirmar</button>
                 </form>
         </div>
     </section>
@@ -127,19 +139,19 @@
             const urlParams = new URLSearchParams(parametroString);
             return Object.fromEntries(urlParams.entries());
         }
-		document.addEventListener("DOMContentLoaded", function() {
-    var parametros = obterParametros();
-    if (parametros.disciplina) {
-        document.getElementById("nomeDisciplina").textContent = decodeURIComponent(parametros.disciplina);
-    }
-});
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var parametros = obterParametros();
+            if (parametros.disciplina) {
+                document.getElementById("nomeDisciplina").textContent = decodeURIComponent(parametros.disciplina);
+            }
+        });
 
         const marcarAulaVirtualSection = document.getElementById('marcarAulaVirtualSection');
         const mensagemAulaInput = document.getElementById('mensagemAula');
         const linkMeetInput = document.getElementById('linkMeet');
         const gerarLinkMeetButton = document.getElementById('gerarLinkMeetButton');
         const confirmarAulaButton = document.getElementById('confirmarAulaButton');
-        const marcarAulaVirtualButton = document.getElementById('marcarAulaVirtualButton');
 
         function gerarLinkMeet() {
             const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
@@ -156,20 +168,17 @@
         });
 
         confirmarAulaButton.addEventListener('click', function () {
-            const mensagem = mensagemAulaInput.value;
+            const dataHoraAula = document.getElementById('dataHoraAula').value;
+            const duracaoAula = document.getElementById('duracaoAula').value;
+            const temaAula = document.getElementById('temaAula').value;
+            const mensagemAula = mensagemAulaInput.value;
             const linkMeet = linkMeetInput.value;
-            console.log('Mensagem:', mensagem);
+            console.log('Data e Hora da Aula:', dataHoraAula);
+            console.log('Duração da Aula:', duracaoAula);
+            console.log('Tema da Aula:', temaAula);
+            console.log('Mensagem:', mensagemAula);
             console.log('Link do Meet:', linkMeet);
             // Adicione aqui a lógica para enviar a mensagem e confirmar a aula virtual
-        });
-
-        marcarAulaVirtualButton.addEventListener('click', function () {
-            marcarAulaVirtualSection.style.display = 'block';
-            const disciplinaSelect = document.getElementById('disciplinaSelect');
-            const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
-            const cursoDisciplina = disciplinaSelect.value.split('/')[0];
-            const queryParams = `?disciplina=${encodeURIComponent(nomeDisciplina)}&curso=${encodeURIComponent(cursoDisciplina)}`;
-            window.location.href = `marcar_aula_virtual.html${queryParams}`;
         });
     </script>
 </body>
