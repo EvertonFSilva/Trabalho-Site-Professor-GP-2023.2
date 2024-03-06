@@ -93,12 +93,27 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 <p id="numeroAulasDisciplina"></p>
                 <div id="resultadosBusca">
                     <button id="listarAlunosButton" type="button" style="display: none;">Listar Alunos</button>
-                     <button id="enviarMensagemButton" type="button" style="display: none;">Enviar Mensagem</button>
+                    <button id="enviarMensagemButton" type="button" style="display: none;">Enviar Mensagem</button>
                     <button id="adicionarTrabalhoButton" type="button" style="display: none;">Adicionar
                         Trabalho</button>
+                    <button id="marcarAulaVirtualButton" type="button" style="display: none;">Marcar Aula
+                        Virtual</button>
                 </div>
             </div>
         </div>
+    </section>
+    <section id="marcarAulaVirtualSection" style="display: none;">
+        <h3>Marcar Aula Virtual</h3>
+        <div>
+            <label for="mensagemAula">Mensagem:</label>
+            <textarea id="mensagemAula" rows="4" cols="50"></textarea>
+        </div>
+        <div>
+            <label for="linkMeet">Link do Meet:</label>
+            <input type="text" id="linkMeet" readonly>
+            <button id="gerarLinkMeetButton" type="button">Gerar Link Aleatório do Meet</button>
+        </div>
+        <button id="confirmarAulaButton" type="button">Confirmar Aula Virtual</button>
     </section>
     <footer>
         <div class="container">
@@ -125,6 +140,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
         const listarAlunosButton = document.getElementById('listarAlunosButton');
         const enviarMensagemButton = document.getElementById('enviarMensagemButton');
         const adicionarTrabalhoButton = document.getElementById('adicionarTrabalhoButton');
+        const marcarAulaVirtualButton = document.getElementById('marcarAulaVirtualButton');
 
         // Logica para o botão de busca funcionarr
         buscarButton.addEventListener('click', function () {
@@ -148,6 +164,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 listarAlunosButton.style.display = 'inline-block';
                 enviarMensagemButton.style.display = 'inline-block';
                 adicionarTrabalhoButton.style.display = 'inline-block';
+                marcarAulaVirtualButton.style.display = 'inline-block';
 
                 resultadosBusca.querySelectorAll('.disciplina').forEach(item => {
                     item.querySelector('.botoes-disciplina').remove();
@@ -175,6 +192,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                 listarAlunosButton.style.display = 'none';
                 enviarMensagemButton.style.display = 'none';
                 adicionarTrabalhoButton.style.display = 'none';
+                marcarAulaVirtualButton.style.display = 'none';
                 document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
             } else {
                 switch (cursoSelecionado) {
@@ -187,6 +205,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                         listarAlunosButton.style.display = 'none';
                         enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
+                        marcarAulaVirtualButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
                     case 'BEC':
@@ -196,6 +215,7 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
                         listarAlunosButton.style.display = 'none';
                         enviarMensagemButton.style.display = 'none';
                         adicionarTrabalhoButton.style.display = 'none';
+                        marcarAulaVirtualButton.style.display = 'none';
                         document.getElementById('mensagemSelecionarDisciplina').style.display = 'block';
                         break;
                 }
@@ -234,12 +254,12 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             }
         });
 
-       enviarMensagemButton.addEventListener('click', function () {
-    const disciplinaSelect = document.getElementById('disciplinaSelect');
-    const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
-    const parametro = `?disciplina=${encodeURIComponent(nomeDisciplina)}`;
-    window.location.href = `enviar_mensagem.html${parametro}`;
-});
+        enviarMensagemButton.addEventListener('click', function () {
+            const disciplinaSelect = document.getElementById('disciplinaSelect');
+            const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+            const parametro = `?disciplina=${encodeURIComponent(nomeDisciplina)}`;
+            window.location.href = `enviar_mensagem.html${parametro}`;
+        });
         adicionarTrabalhoButton.addEventListener('click', function () {
             const disciplinaSelect = document.getElementById('disciplinaSelect');
             const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
@@ -247,6 +267,15 @@ e CR (Coeficiente de Rendimento). Cada aluno terá um botão para detalhar suas 
             const queryParams = `?disciplina=${encodeURIComponent(nomeDisciplina)}&curso=${encodeURIComponent(cursoDisciplina)}`;
             window.location.href = `adicionar_trabalho.html${queryParams}`;
         });
+        marcarAulaVirtualButton.addEventListener('click', function () {
+            const disciplinaSelect = document.getElementById('disciplinaSelect');
+            const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+            const cursoDisciplina = disciplinaSelect.value.split('/')[0];
+            const queryParams = `?disciplina=${encodeURIComponent(nomeDisciplina)}&curso=${encodeURIComponent(cursoDisciplina)}`;
+            window.location.href = `marcar_aula_virtual.html${queryParams}`;
+        });
+
+
     </script>
 </body>
 

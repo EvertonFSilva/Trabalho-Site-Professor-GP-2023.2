@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcar Aula Virtual</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container p {
+            text-align: center;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label,
+        p {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            border: none;
+            background-color: #2c3e50;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #34495e;
+        }
+
+        #gerarLinkMeetButton {
+        margin-bottom: 10px; 
+    }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Bem-vindo, Professor</h1>
+            <p>Aqui, você pode acessar diversas funcionalidades como professor.</p>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Página Inicial</a></li>
+                <li><a href="consultar_disciplinas.html"><i class="fas fa-book-open"></i> Consultar Disciplinas por
+                        Curso</a></li>
+                <li><a href="consultar_horarios.html"><i class="far fa-calendar-alt"></i> Consultar Horários do
+                        Professor</a></li>
+                <li><a href="consultar_alunos.html"><i class="fas fa-user-graduate"></i> Consultar Alunos da
+                        Disciplina</a></li>
+                <li><a href="consultar_cursos.html"><i class="fas fa-chalkboard-teacher"></i> Consultar Cursos e
+                        Coordenadores</a></li>
+                <li><a href="registrar_interesse.html"><i class="far fa-hand-pointer"></i> Registrar Interesse em
+                        Disciplina para Lecionar</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="features">
+        <div class="container">
+            <h2 id="tituloPagina">Marcar Aula Virtual
+                <p>Turma: <span id="nomeDisciplina"></span></p><br>
+                <div id="mensagemErro" style="display: none;"></div>
+                <form id="marcarAulaVirtualForm">
+                    <label for="mensagemAula">Mensagem:</label>
+                    <textarea id="mensagemAula" rows="4" cols="30"></textarea>
+
+                    <label for="linkMeet">Link do Meet:</label>
+                    <input type="text" id="linkMeet" readonly>
+                    <button id="gerarLinkMeetButton" type="button">Gerar Sala do Meet</button>
+
+                    <button id="confirmarAulaButton" type="button">Confirmar Aula Virtual</button>
+                </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sistema Educacional. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        function obterParametros() {
+            const parametroString = window.location.search;
+            const urlParams = new URLSearchParams(parametroString);
+            return Object.fromEntries(urlParams.entries());
+        }
+		document.addEventListener("DOMContentLoaded", function() {
+    var parametros = obterParametros();
+    if (parametros.disciplina) {
+        document.getElementById("nomeDisciplina").textContent = decodeURIComponent(parametros.disciplina);
+    }
+});
+
+        const marcarAulaVirtualSection = document.getElementById('marcarAulaVirtualSection');
+        const mensagemAulaInput = document.getElementById('mensagemAula');
+        const linkMeetInput = document.getElementById('linkMeet');
+        const gerarLinkMeetButton = document.getElementById('gerarLinkMeetButton');
+        const confirmarAulaButton = document.getElementById('confirmarAulaButton');
+        const marcarAulaVirtualButton = document.getElementById('marcarAulaVirtualButton');
+
+        function gerarLinkMeet() {
+            const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+            let link = 'https://meet.google.com/';
+            for (let i = 0; i < 10; i++) {
+                link += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+            }
+            return link;
+        }
+
+        gerarLinkMeetButton.addEventListener('click', function () {
+            const link = gerarLinkMeet();
+            linkMeetInput.value = link;
+        });
+
+        confirmarAulaButton.addEventListener('click', function () {
+            const mensagem = mensagemAulaInput.value;
+            const linkMeet = linkMeetInput.value;
+            console.log('Mensagem:', mensagem);
+            console.log('Link do Meet:', linkMeet);
+            // Adicione aqui a lógica para enviar a mensagem e confirmar a aula virtual
+        });
+
+        marcarAulaVirtualButton.addEventListener('click', function () {
+            marcarAulaVirtualSection.style.display = 'block';
+            const disciplinaSelect = document.getElementById('disciplinaSelect');
+            const nomeDisciplina = disciplinaSelect.options[disciplinaSelect.selectedIndex].text;
+            const cursoDisciplina = disciplinaSelect.value.split('/')[0];
+            const queryParams = `?disciplina=${encodeURIComponent(nomeDisciplina)}&curso=${encodeURIComponent(cursoDisciplina)}`;
+            window.location.href = `marcar_aula_virtual.html${queryParams}`;
+        });
+    </script>
+</body>
+
+</html>
